@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ChevronRight, Plus, Trash2 } from "lucide-react";
+import { Archive, ArchiveRestore, ChevronRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import birds from "@/assets/birds.png.asset.json";
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { lists, createList, deleteList } = useTodoLists();
+  const { lists, createList, archiveList, restoreList } = useTodoLists();
   const [armed, setArmed] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ function Index() {
           </button>
         </div>
         <ul className="mt-2 max-h-[440px] space-y-9 overflow-y-auto pb-1">
-          {lists?.map((l) => (
+          {lists?.filter((l) => !l.archived).map((l) => (
             <li key={l.id} className="group relative">
               <Link
                 to="/list/$id"
@@ -52,27 +52,54 @@ function Index() {
               {armed === l.id ? (
                 <button
                   onClick={() => {
-                    deleteList(l.id);
+                    archiveList(l.id);
                     setArmed(null);
                   }}
-                  aria-label="Radera lista"
-                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-destructive px-4 py-1.5 font-display text-base text-destructive-foreground shadow-card transition hover:ring-2 hover:ring-foreground"
+                  aria-label="Arkivera lista"
+                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-card px-4 py-1.5 font-display text-base text-card-foreground shadow-card transition hover:ring-2 hover:ring-foreground"
                 >
-                  Delete
+                  Arkivera
                 </button>
               ) : (
                 <button
                   onClick={() => setArmed(l.id)}
-                  aria-label="Ta bort lista"
+                  aria-label="Arkivera lista"
                   className="absolute right-16 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-card-foreground/70 opacity-0 transition-opacity hover:bg-beige hover:text-card-foreground focus-visible:opacity-100 group-hover:opacity-100"
                 >
-                  <Trash2 className="h-6 w-6" strokeWidth={1.5} />
+                  <Archive className="h-6 w-6" strokeWidth={1.5} />
                 </button>
               )}
             </li>
           ))}
         </ul>
       </section>
+      {lists?.some((l) => l.archived) && (
+        <section className="mx-auto mt-8 max-w-xl">
+          <h2 className="px-2 font-display text-xl text-foreground/80">Arkiverade</h2>
+          <ul className="mt-3 space-y-4">
+            {lists
+              .filter((l) => l.archived)
+              .map((l) => (
+                <li key={l.id} className="group flex items-center justify-between rounded-sm bg-card/70 px-5 py-4">
+                  <Link
+                    to="/list/$id"
+                    params={{ id: l.id }}
+                    className="min-w-0 flex-1 truncate font-display text-lg text-card-foreground/80"
+                  >
+                    {l.title}
+                  </Link>
+                  <button
+                    onClick={() => restoreList(l.id)}
+                    aria-label="Återställ lista"
+                    className="flex items-center gap-2 rounded-full p-1.5 font-display text-sm text-card-foreground/70 transition hover:bg-beige hover:text-card-foreground"
+                  >
+                    Återställ <ArchiveRestore className="h-4 w-4" strokeWidth={1.5} />
+                  </button>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
     </main>
   );
 }
