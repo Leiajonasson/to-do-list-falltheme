@@ -6,13 +6,18 @@ export type TodoList = { id: string; title: string; items: Todo[] };
 const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+const inhandlingItems = [
+  "Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis",
+  "Smör", "Ägg", "Ost", "Kaffe", "Socker", "Ris", "Pasta", "Potatis", "Tomater", "Gurka",
+];
+
 const seed: TodoList[] = [
   { id: "torsdag", title: "Onsdag 28/10", items: [] },
   { id: "jul", title: "Fixa inför Jul", items: [] },
   {
     id: "inhandling",
     title: "Inhandlingslista",
-    items: ["Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis"].map((t) => ({
+    items: inhandlingItems.map((t) => ({
       id: uid(),
       text: t,
       done: false,
@@ -26,7 +31,19 @@ function read(): TodoList[] {
     const raw = localStorage.getItem(KEY);
     const lists: TodoList[] = raw ? JSON.parse(raw) : seed;
     // One-time rename: "Torsdag 6/10" -> "Onsdag 28/10" (same date as shown under the title)
-    return lists.map((l) => (l.id === "torsdag" && l.title === "Torsdag 6/10" ? { ...l, title: "Onsdag 28/10" } : l));
+    let lists2 = lists.map((l) =>
+      l.id === "torsdag" && l.title === "Torsdag 6/10" ? { ...l, title: "Onsdag 28/10" } : l,
+    );
+    // Add missing shopping-list items to already-saved data
+    lists2 = lists2.map((l) => {
+      if (l.id !== "inhandling") return l;
+      const have = new Set(l.items.map((i) => i.text));
+      const missing = inhandlingItems
+        .filter((t) => !have.has(t))
+        .map((text) => ({ id: uid(), text, done: false }));
+      return missing.length ? { ...l, items: [...l.items, ...missing] } : l;
+    });
+    return lists2;
   } catch {
     return seed;
   }
