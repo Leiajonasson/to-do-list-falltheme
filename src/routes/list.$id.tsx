@@ -59,7 +59,7 @@ function ListPage() {
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
-                <div className={`flex flex-1 items-center gap-6 border-b py-3 ${selected === item.id ? "border-transparent" : "border-transparent group-hover:border-card-foreground/70"}`}>
+                <div className="flex flex-1 items-center gap-6 border-b border-card-foreground/70 py-3">
                   <button
                     onClick={() => toggleItem(id, item.id)}
                     aria-label={item.done ? "Ångra" : "Klar"}
