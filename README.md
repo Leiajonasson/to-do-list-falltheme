@@ -6,9 +6,7 @@ This project was built with [Lovable](https://lovable.dev).
 
 ## Förhandsvisning
 
-[Öppna appen i förhandsvisningen](https://id-preview--d1b5eaf3-3de6-4ded-8719-57bbf945187d.lovable.app)
-
-> Obs: förhandsvisningslänken kräver inloggning hos Lovable som standard. Skapa en delbar förhandsvisningslänk i Lovable (**Share → Create shared preview link**) för att ge andra åtkomst utan konto.
+[Öppna appen](https://sixfold-task-garden.lovable.app)
 
 ## Build with Lovable
 
