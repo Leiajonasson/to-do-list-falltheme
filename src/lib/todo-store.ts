@@ -6,13 +6,18 @@ export type TodoList = { id: string; title: string; items: Todo[] };
 const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
+const inhandlingItems = [
+  "Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis",
+  "Smör", "Ägg", "Ost", "Kaffe", "Socker", "Ris", "Pasta", "Potatis", "Tomater", "Gurka",
+];
+
 const seed: TodoList[] = [
   { id: "torsdag", title: "Onsdag 28/10", items: [] },
   { id: "jul", title: "Fixa inför Jul", items: [] },
   {
     id: "inhandling",
     title: "Inhandlingslista",
-    items: ["Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis"].map((t) => ({
+    items: inhandlingItems.map((t) => ({
       id: uid(),
       text: t,
       done: false,
