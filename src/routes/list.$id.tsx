@@ -154,6 +154,12 @@ function ListPage() {
           </ul>
         </section>
       )}
+      {list && (
+        <div className="pointer-events-none -mt-3 flex items-end justify-between px-6 sm:hidden">
+          <img src={leavesLeft.url} alt="" className="w-24 -rotate-6 opacity-90" />
+          <img src={leavesRight.url} alt="" className="w-20 rotate-6 opacity-90" />
+        </div>
+      )}
     </main>
   );
 }
