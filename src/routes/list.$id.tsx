@@ -22,7 +22,7 @@ export const Route = createFileRoute("/list/$id")({
 function ListPage() {
   const { id } = Route.useParams();
   const { new: isNew } = Route.useSearch();
-  const { lists, renameList, addItem, toggleItem, deleteItem } = useTodoLists();
+  const { lists, renameList, setDate, addItem, toggleItem, deleteItem } = useTodoLists();
   const [draft, setDraft] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [today, setToday] = useState("");
