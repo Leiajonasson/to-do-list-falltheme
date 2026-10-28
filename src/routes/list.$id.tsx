@@ -26,6 +26,7 @@ function ListPage() {
   const [draft, setDraft] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [today, setToday] = useState("");
+  const [copied, setCopied] = useState(false);
   const list = lists?.find((l) => l.id === id);
 
   useEffect(() => {
