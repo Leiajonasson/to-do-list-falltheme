@@ -7,7 +7,7 @@ const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 const seed: TodoList[] = [
-  { id: "torsdag", title: "Torsdag 6/10", items: [] },
+  { id: "torsdag", title: "Onsdag 28/10", items: [] },
   { id: "jul", title: "Fixa inför Jul", items: [] },
   {
     id: "inhandling",
@@ -24,7 +24,9 @@ const seed: TodoList[] = [
 function read(): TodoList[] {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? JSON.parse(raw) : seed;
+    const lists: TodoList[] = raw ? JSON.parse(raw) : seed;
+    // One-time rename: "Torsdag 6/10" -> "Onsdag 28/10" (same date as shown under the title)
+    return lists.map((l) => (l.id === "torsdag" && l.title === "Torsdag 6/10" ? { ...l, title: "Onsdag 28/10" } : l));
   } catch {
     return seed;
   }
