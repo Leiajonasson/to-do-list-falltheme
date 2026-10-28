@@ -7,7 +7,7 @@ const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 const seed: TodoList[] = [
-  { id: "torsdag", title: "Torsdag 6/10", items: [] },
+  { id: "torsdag", title: "Onsdag 28/10", items: [] },
   { id: "jul", title: "Fixa inför Jul", items: [] },
   {
     id: "inhandling",
