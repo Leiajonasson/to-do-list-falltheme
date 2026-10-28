@@ -74,7 +74,7 @@ function ListPage() {
                   <button
                     onClick={() => setSelected(selected === item.id ? null : item.id)}
                     aria-label="Visa radera"
-                    className={`pr-2 font-display text-2xl leading-none text-card-foreground opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100 ${selected === item.id ? "opacity-100" : ""}`}
+                    className="pr-2 font-display text-2xl leading-none text-card-foreground opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100"
                   >
                     &minus;
                   </button>
