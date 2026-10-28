@@ -60,7 +60,7 @@ function ListPage() {
       <img src={leavesLeft.url} alt="" className="pointer-events-none absolute left-[max(1rem,calc(50%-30rem))] top-[15vw] hidden w-[42vw] max-w-96 sm:block sm:top-[16vw] md:top-44" />
       <img src={leavesRight.url} alt="" className="pointer-events-none absolute right-[max(1rem,calc(50%-30rem))] top-[15vw] hidden w-[32vw] max-w-80 sm:block sm:top-[16vw] md:top-44" />
       <Link to="/" aria-label="Tillbaka" className="absolute left-10 top-20 -m-3 rounded-full p-3 text-foreground transition hover:bg-white hover:shadow-card">
-        <ChevronLeft className="h-14 w-14" strokeWidth={1.5} />
+        <ChevronLeft className="h-14 w-14 sm:h-10 sm:w-10" strokeWidth={1.5} />
       </Link>
       <h1 className="pt-20 text-center font-display text-6xl text-foreground">
         {isNew ? "Skapa din nya to-do" : "To-do"}
