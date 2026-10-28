@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, Plus } from "lucide-react";
+import { Check, ChevronLeft, Plus, Share } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import leavesLeft from "@/assets/leaves-left.png.asset.json";
