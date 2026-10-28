@@ -6,25 +6,27 @@ export type TodoList = { id: string; title: string; date?: string; items: Todo[]
 const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
 
-const inhandlingItems = [
-  "Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis",
-  "Smör", "Ägg", "Ost", "Kaffe", "Socker", "Ris", "Pasta", "Potatis", "Tomater", "Gurka",
-];
+const seedItems: Record<string, string[]> = {
+  inhandling: [
+    "Äpple", "Banan", "Mjöl", "Mjölk", "Kakor", "Bröd", "Läsk", "Godis",
+    "Smör", "Ägg", "Ost", "Kaffe", "Socker", "Ris", "Pasta", "Potatis", "Tomater", "Gurka",
+  ],
+  torsdag: ["Städa köket", "Tvätta", "Ring mormor", "Träna 30 min", "Läxor"],
+  jul: [
+    "Köp julklappar", "Skicka julkort", "Dekorera granen",
+    "Baka pepparkakor", "Planera julbordet", "Ljus till adventen",
+  ],
+  nyar: [
+    "Skicka inbjudningar", "Beställa mat", "Gör en spellista",
+    "Köp dekorationer", "Planera spel för kvällen", "Boka hemkomsttaxi",
+  ],
+};
 
-const seed: TodoList[] = [
-  { id: "torsdag", title: "Onsdag 28/10", items: [] },
-  { id: "jul", title: "Fixa inför Jul", items: [] },
-  {
-    id: "inhandling",
-    title: "Inhandlingslista",
-    items: inhandlingItems.map((t) => ({
-      id: uid(),
-      text: t,
-      done: false,
-    })),
-  },
-  { id: "nyar", title: "Planera nyår", items: [] },
-];
+const seed: TodoList[] = Object.entries(seedItems).map(([id, items]) => ({
+  id,
+  title: id === "torsdag" ? "Onsdag 28/10" : id === "jul" ? "Fixa inför Jul" : id === "inhandling" ? "Inhandlingslista" : "Planera nyår",
+  items: items.map((t) => ({ id: uid(), text: t, done: false })),
+}));
 
 function read(): TodoList[] {
   try {
@@ -34,11 +36,12 @@ function read(): TodoList[] {
     let lists2 = lists.map((l) =>
       l.id === "torsdag" && l.title === "Torsdag 6/10" ? { ...l, title: "Onsdag 28/10" } : l,
     );
-    // Add missing shopping-list items to already-saved data
+    // Add missing seed items to already-saved data (preserves existing items and their state)
     lists2 = lists2.map((l) => {
-      if (l.id !== "inhandling") return l;
+      const items = seedItems[l.id];
+      if (!items) return l;
       const have = new Set(l.items.map((i) => i.text));
-      const missing = inhandlingItems
+      const missing = items
         .filter((t) => !have.has(t))
         .map((text) => ({ id: uid(), text, done: false }));
       return missing.length ? { ...l, items: [...l.items, ...missing] } : l;
