@@ -36,11 +36,12 @@ function read(): TodoList[] {
     let lists2 = lists.map((l) =>
       l.id === "torsdag" && l.title === "Torsdag 6/10" ? { ...l, title: "Onsdag 28/10" } : l,
     );
-    // Add missing shopping-list items to already-saved data
+    // Add missing seed items to already-saved data (preserves existing items and their state)
     lists2 = lists2.map((l) => {
-      if (l.id !== "inhandling") return l;
+      const items = seedItems[l.id];
+      if (!items) return l;
       const have = new Set(l.items.map((i) => i.text));
-      const missing = inhandlingItems
+      const missing = items
         .filter((t) => !have.has(t))
         .map((text) => ({ id: uid(), text, done: false }));
       return missing.length ? { ...l, items: [...l.items, ...missing] } : l;
