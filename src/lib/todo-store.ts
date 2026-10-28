@@ -76,7 +76,18 @@ export function useTodoLists() {
     renameList: (id: string, title: string) =>
       update((l) => l.map((x) => (x.id === id ? { ...x, title } : x))),
     setDate: (id: string, date: string) =>
-      update((l) => l.map((x) => (x.id === id ? { ...x, date: date.trim() || undefined } : x))),
+      update((l) =>
+        l.map((x) => {
+          if (x.id !== id) return x;
+          const d = date.trim();
+          if (!d) {
+            const { date: _drop, ...rest } = x;
+            return rest;
+          }
+          return { ...x, date: d };
+        }),
+      ),
+    deleteList: (id: string) => update((l) => l.filter((x) => x.id !== id)),
     addItem: (id: string, text: string) =>
       update((l) =>
         l.map((x) => (x.id === id ? { ...x, items: [...x.items, { id: uid(), text, done: false }] } : x)),
