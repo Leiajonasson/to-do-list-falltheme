@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Plus } from "lucide-react";
 import { useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
-import leavesLeft from "@/assets/leaves-left.png";
-import leavesRight from "@/assets/leaves-right.png";
+import leavesLeft from "@/assets/leaves-left.png.asset.json";
+import leavesRight from "@/assets/leaves-right.png.asset.json";
 
 export const Route = createFileRoute("/list/$id")({
   validateSearch: (s: Record<string, unknown>): { new?: boolean } =>
@@ -34,8 +34,8 @@ function ListPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background px-4 pb-10">
-      <img src={leavesLeft} alt="" className="pointer-events-none absolute left-[6%] top-48 hidden w-80 md:block" />
-      <img src={leavesRight} alt="" className="pointer-events-none absolute right-[6%] top-44 hidden w-80 md:block" />
+      <img src={leavesLeft.url} alt="" className="pointer-events-none absolute left-[max(1rem,calc(50%-30rem))] top-48 hidden w-72 md:block" />
+      <img src={leavesRight.url} alt="" className="pointer-events-none absolute right-[max(1rem,calc(50%-30rem))] top-44 hidden w-72 md:block" />
       <Link to="/" aria-label="Tillbaka" className="absolute left-10 top-20 text-foreground">
         <ChevronLeft className="h-14 w-14" strokeWidth={1.5} />
       </Link>
