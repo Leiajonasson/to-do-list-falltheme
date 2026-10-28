@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 
 export type Todo = { id: string; text: string; done: boolean };
-export type TodoList = { id: string; title: string; items: Todo[] };
+export type TodoList = { id: string; title: string; date?: string; items: Todo[] };
 
 const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
