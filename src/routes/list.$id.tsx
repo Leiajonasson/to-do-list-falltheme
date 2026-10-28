@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import leavesLeft from "@/assets/leaves-left.png.asset.json";
 import leavesRight from "@/assets/leaves-right.png.asset.json";
@@ -25,7 +25,13 @@ function ListPage() {
   const { lists, renameList, addItem, toggleItem, deleteItem } = useTodoLists();
   const [draft, setDraft] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [today, setToday] = useState("");
   const list = lists?.find((l) => l.id === id);
+
+  useEffect(() => {
+    const d = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" });
+    setToday(d.charAt(0).toUpperCase() + d.slice(1));
+  }, []);
 
   const submit = () => {
     if (draft?.trim()) addItem(id, draft.trim());
@@ -60,6 +66,11 @@ function ListPage() {
               <Plus className="h-6 w-6" strokeWidth={1.5} />
             </button>
           </div>
+          {today && (
+            <p className="mt-0.5 font-display text-sm text-card-foreground/70" aria-label="Dagens datum">
+              {today}
+            </p>
+          )}
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
