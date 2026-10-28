@@ -112,7 +112,7 @@ function Index() {
                 ))}
             </ul>
           ) : (
-            <p className="text-center font-display text-lg text-foreground/50">Inga arkiverade listor</p>
+            <p className="text-center font-display text-lg text-foreground">Inga arkiverade listor</p>
           )}
         </section>
       )}
