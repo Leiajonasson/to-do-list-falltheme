@@ -92,6 +92,8 @@ export function useTodoLists() {
       ),
     deleteList: (id: string) => update((l) => l.filter((x) => x.id !== id)),
     archiveList: (id: string) =>
+      update((l) => l.map((x) => (x.id === id ? { ...x, archived: true } : x))),
+    restoreList: (id: string) =>
       update((l) =>
         l.map((x) => {
           if (x.id !== id) return x;
@@ -99,8 +101,6 @@ export function useTodoLists() {
           return rest;
         }),
       ),
-    restoreList: (id: string) =>
-      update((l) => l.map((x) => (x.id === id ? { ...x, archived: true } : x))),
     addItem: (id: string, text: string) =>
       update((l) =>
         l.map((x) => (x.id === id ? { ...x, items: [...x.items, { id: uid(), text, done: false }] } : x)),
