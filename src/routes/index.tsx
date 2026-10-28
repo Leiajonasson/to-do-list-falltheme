@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ChevronRight, Plus } from "lucide-react";
+import { ChevronRight, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import birds from "@/assets/birds.png.asset.json";
 import trees from "@/assets/trees.png.asset.json";
