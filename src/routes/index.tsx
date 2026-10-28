@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ChevronRight, Plus, Trash2 } from "lucide-react";
+import { Archive, ArchiveRestore, ChevronRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import birds from "@/assets/birds.png.asset.json";
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { lists, createList, deleteList } = useTodoLists();
+  const { lists, createList, archiveList, restoreList } = useTodoLists();
   const [armed, setArmed] = useState<string | null>(null);
   const navigate = useNavigate();
 
