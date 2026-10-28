@@ -75,6 +75,8 @@ export function useTodoLists() {
     },
     renameList: (id: string, title: string) =>
       update((l) => l.map((x) => (x.id === id ? { ...x, title } : x))),
+    setDate: (id: string, date: string) =>
+      update((l) => l.map((x) => (x.id === id ? { ...x, date: date.trim() || undefined } : x))),
     addItem: (id: string, text: string) =>
       update((l) =>
         l.map((x) => (x.id === id ? { ...x, items: [...x.items, { id: uid(), text, done: false }] } : x)),
