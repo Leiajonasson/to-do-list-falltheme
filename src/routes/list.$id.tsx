@@ -72,16 +72,25 @@ function ListPage() {
             <input
               value={list.title}
               onChange={(e) => renameList(id, e.target.value)}
-              className="w-full bg-transparent font-display text-2xl text-card-foreground outline-none"
+              className="min-w-0 flex-1 bg-transparent font-display text-2xl text-card-foreground outline-none"
               aria-label="Listans namn"
             />
-            <button
-              onClick={() => setDraft("")}
-              aria-label="Lägg till"
-              className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
-            >
-              <Plus className="h-6 w-6" strokeWidth={1.5} />
-            </button>
+            <div className="flex shrink-0 items-center">
+              <button
+                onClick={share}
+                aria-label="Dela lista"
+                className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
+              >
+                {copied ? <Check className="h-6 w-6" strokeWidth={1.5} /> : <Share className="h-6 w-6" strokeWidth={1.5} />}
+              </button>
+              <button
+                onClick={() => setDraft("")}
+                aria-label="Lägg till"
+                className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
+              >
+                <Plus className="h-6 w-6" strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
           {today && (
             <p className="mt-0.5 font-display text-sm text-card-foreground/70" aria-label="Dagens datum">
