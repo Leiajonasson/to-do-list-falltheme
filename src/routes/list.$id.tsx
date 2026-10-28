@@ -6,7 +6,8 @@ import leavesLeft from "@/assets/leaves-left.png";
 import leavesRight from "@/assets/leaves-right.png";
 
 export const Route = createFileRoute("/list/$id")({
-  validateSearch: (s: Record<string, unknown>) => ({ new: s.new === true || s.new === "true" ? true : undefined }),
+  validateSearch: (s: Record<string, unknown>): { new?: boolean } =>
+    s["new"] === true || s["new"] === "true" ? { new: true } : {},
   head: () => ({
     meta: [
       { title: "To-do lista" },
