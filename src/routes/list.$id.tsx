@@ -58,7 +58,7 @@ function ListPage() {
           </div>
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
-              <li key={item.id} className="group flex items-center gap-3">
+              <li key={item.id} className="group relative flex items-center gap-3">
                 <div className="flex flex-1 items-center gap-6 border-b border-card-foreground/70 py-3">
                   <button
                     onClick={() => toggleItem(id, item.id)}
@@ -67,7 +67,7 @@ function ListPage() {
                   />
                   <button
                     onClick={() => setSelected(selected === item.id ? null : item.id)}
-                    className="flex-1 text-left font-display text-lg text-card-foreground"
+                    className={`min-w-0 flex-1 truncate text-left font-display text-lg text-card-foreground ${selected === item.id ? "pr-24" : ""}`}
                   >
                     {item.text}
                   </button>
@@ -87,7 +87,7 @@ function ListPage() {
                       deleteItem(id, item.id);
                       setSelected(null);
                     }}
-                    className="rounded-md bg-destructive px-8 py-2 font-display text-lg text-destructive-foreground focus:ring-2 focus:ring-foreground"
+                    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-destructive px-4 py-1.5 font-display text-base text-destructive-foreground shadow-card focus:ring-2 focus:ring-foreground"
                   >
                     Delete
                   </button>
