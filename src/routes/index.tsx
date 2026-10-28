@@ -73,31 +73,46 @@ function Index() {
           ))}
         </ul>
       </section>
-      {lists?.some((l) => l.archived) && (
-        <section className="mx-auto mt-8 max-w-xl">
-          <h2 className="px-2 font-display text-xl text-foreground/80">Arkiverade</h2>
-          <ul className="mt-3 space-y-4">
-            {lists
-              .filter((l) => l.archived)
-              .map((l) => (
-                <li key={l.id} className="group flex items-center justify-between rounded-sm bg-card/70 px-5 py-4">
-                  <Link
-                    to="/list/$id"
-                    params={{ id: l.id }}
-                    className="min-w-0 flex-1 truncate font-display text-lg text-card-foreground/80"
-                  >
-                    {l.title}
-                  </Link>
-                  <button
-                    onClick={() => restoreList(l.id)}
-                    aria-label="Återställ lista"
-                    className="flex items-center gap-2 rounded-full p-1.5 font-display text-sm text-card-foreground/70 transition hover:bg-beige hover:text-card-foreground"
-                  >
-                    Återställ <ArchiveRestore className="h-4 w-4" strokeWidth={1.5} />
-                  </button>
-                </li>
-              ))}
-          </ul>
+      <button
+        onClick={() => setArchiveOpen((o) => !o)}
+        aria-expanded={archiveOpen}
+        className="mx-auto mt-8 flex items-center gap-2.5 rounded-full bg-card/70 px-5 py-2.5 font-display text-lg text-card-foreground/80 shadow-card transition hover:bg-card"
+      >
+        <Archive className="h-5 w-5" strokeWidth={1.5} />
+        Arkiverade listor
+        <ChevronRight
+          className={`h-5 w-5 text-card-foreground/60 transition-transform ${archiveOpen ? "rotate-90" : ""}`}
+          strokeWidth={1.5}
+        />
+      </button>
+      {archiveOpen && (
+        <section className="mx-auto mt-6 max-w-xl">
+          {lists?.some((l) => l.archived) ? (
+            <ul className="space-y-4">
+              {lists
+                .filter((l) => l.archived)
+                .map((l) => (
+                  <li key={l.id} className="group flex items-center justify-between rounded-sm bg-card/70 px-5 py-4">
+                    <Link
+                      to="/list/$id"
+                      params={{ id: l.id }}
+                      className="min-w-0 flex-1 truncate font-display text-lg text-card-foreground/80"
+                    >
+                      {l.title}
+                    </Link>
+                    <button
+                      onClick={() => restoreList(l.id)}
+                      aria-label="Återställ lista"
+                      className="flex items-center gap-2 rounded-full p-1.5 font-display text-sm text-card-foreground/70 transition hover:bg-beige hover:text-card-foreground"
+                    >
+                      Återställ <ArchiveRestore className="h-4 w-4" strokeWidth={1.5} />
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          ) : (
+            <p className="text-center font-display text-lg text-foreground/50">Inga arkiverade listor</p>
+          )}
         </section>
       )}
     </main>
