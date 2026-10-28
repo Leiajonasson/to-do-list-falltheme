@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 
 export type Todo = { id: string; text: string; done: boolean };
-export type TodoList = { id: string; title: string; date?: string; items: Todo[] };
+export type TodoList = { id: string; title: string; date?: string; archived?: boolean; items: Todo[] };
 
 const KEY = "todo-lists-v1";
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -91,6 +91,16 @@ export function useTodoLists() {
         }),
       ),
     deleteList: (id: string) => update((l) => l.filter((x) => x.id !== id)),
+    archiveList: (id: string) =>
+      update((l) =>
+        l.map((x) => {
+          if (x.id !== id) return x;
+          const { archived: _drop, ...rest } = x;
+          return rest;
+        }),
+      ),
+    restoreList: (id: string) =>
+      update((l) => l.map((x) => (x.id === id ? { ...x, archived: true } : x))),
     addItem: (id: string, text: string) =>
       update((l) =>
         l.map((x) => (x.id === id ? { ...x, items: [...x.items, { id: uid(), text, done: false }] } : x)),
