@@ -66,6 +66,11 @@ function ListPage() {
               <Plus className="h-6 w-6" strokeWidth={1.5} />
             </button>
           </div>
+          {today && (
+            <p className="mt-0.5 font-display text-sm text-card-foreground/70" aria-label="Dagens datum">
+              {today}
+            </p>
+          )}
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
