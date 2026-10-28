@@ -4,6 +4,12 @@ kan du utifrån dessa 6 bilder skapa denna webbaserad to-do app
 
 This project was built with [Lovable](https://lovable.dev).
 
+## Förhandsvisning
+
+[Öppna appen i förhandsvisningen](https://id-preview--d1b5eaf3-3de6-4ded-8719-57bbf945187d.lovable.app)
+
+> Obs: förhandsvisningslänken kräver inloggning hos Lovable som standard. Skapa en delbar förhandsvisningslänk i Lovable (**Share → Create shared preview link**) för att ge andra åtkomst utan konto.
+
 ## Build with Lovable
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d1b5eaf3-3de6-4ded-8719-57bbf945187d).
