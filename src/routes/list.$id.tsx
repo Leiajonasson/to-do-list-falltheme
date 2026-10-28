@@ -34,7 +34,7 @@ function ListPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background px-4 pb-10">
-      <img src={leavesLeft.url} alt="" className="pointer-events-none absolute left-[max(1rem,calc(50%-30rem))] top-[17vw] w-[32vw] max-w-80 sm:top-[18vw] md:top-48" />
+      <img src={leavesLeft.url} alt="" className="pointer-events-none absolute left-[max(1rem,calc(50%-30rem))] top-[15vw] w-[42vw] max-w-96 sm:top-[16vw] md:top-44" />
       <img src={leavesRight.url} alt="" className="pointer-events-none absolute right-[max(1rem,calc(50%-30rem))] top-[15vw] w-[32vw] max-w-80 sm:top-[16vw] md:top-44" />
       <Link to="/" aria-label="Tillbaka" className="absolute left-10 top-20 text-foreground">
         <ChevronLeft className="h-14 w-14" strokeWidth={1.5} />
