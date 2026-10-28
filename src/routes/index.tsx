@@ -39,7 +39,7 @@ function Index() {
         </div>
         <ul className="mt-2 max-h-[440px] space-y-9 overflow-y-auto pb-1">
           {lists?.map((l) => (
-            <li key={l.id} className="relative">
+            <li key={l.id} className="group relative">
               <Link
                 to="/list/$id"
                 params={{ id: l.id }}
@@ -64,7 +64,7 @@ function Index() {
                 <button
                   onClick={() => setArmed(l.id)}
                   aria-label="Ta bort lista"
-                  className="absolute right-16 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-card-foreground/70 transition hover:bg-beige hover:text-card-foreground"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-card-foreground/70 opacity-0 transition-opacity hover:bg-beige hover:text-card-foreground focus-visible:opacity-100 group-hover:opacity-100"
                 >
                   <Trash2 className="h-6 w-6" strokeWidth={1.5} />
                 </button>
