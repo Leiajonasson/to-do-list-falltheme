@@ -25,7 +25,13 @@ function ListPage() {
   const { lists, renameList, addItem, toggleItem, deleteItem } = useTodoLists();
   const [draft, setDraft] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [today, setToday] = useState("");
   const list = lists?.find((l) => l.id === id);
+
+  useEffect(() => {
+    const d = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" });
+    setToday(d.charAt(0).toUpperCase() + d.slice(1));
+  }, []);
 
   const submit = () => {
     if (draft?.trim()) addItem(id, draft.trim());
