@@ -47,6 +47,7 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
   --color-done: var(--done);
+  --color-beige: var(--beige);
   --font-display: "Bitter", Georgia, serif;
   --shadow-card: 0 4px 10px -2px oklch(0.3 0.03 60 / 35%);
   --color-chart-1: var(--chart-1);
