@@ -28,6 +28,8 @@ function ListPage() {
   const [today, setToday] = useState("");
   const [copied, setCopied] = useState(false);
   const list = lists?.find((l) => l.id === id);
+  // Klara saker längst ner, annars ursprunglig ordning (sort är stabil)
+  const sortedItems = list ? [...list.items].sort((a, b) => Number(a.done) - Number(b.done)) : [];
 
   useEffect(() => {
     const d = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" });
@@ -98,7 +100,7 @@ function ListPage() {
             </p>
           )}
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
-            {list.items.map((item) => (
+            {sortedItems.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
                 <div className="flex flex-1 items-center gap-6 border-b border-card-foreground/70 py-3">
                   <button
