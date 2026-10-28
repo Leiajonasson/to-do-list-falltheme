@@ -20,6 +20,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { lists, createList, archiveList, restoreList } = useTodoLists();
   const [armed, setArmed] = useState<string | null>(null);
+  const [archiveOpen, setArchiveOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
