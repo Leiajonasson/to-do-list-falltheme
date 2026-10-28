@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, Plus } from "lucide-react";
+import { Check, ChevronLeft, Plus, Share } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTodoLists } from "@/lib/todo-store";
 import leavesLeft from "@/assets/leaves-left.png.asset.json";
@@ -26,6 +26,7 @@ function ListPage() {
   const [draft, setDraft] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [today, setToday] = useState("");
+  const [copied, setCopied] = useState(false);
   const list = lists?.find((l) => l.id === id);
 
   useEffect(() => {
@@ -36,6 +37,22 @@ function ListPage() {
   const submit = () => {
     if (draft?.trim()) addItem(id, draft.trim());
     setDraft(null);
+  };
+
+  const share = async () => {
+    if (!list) return;
+    const text = `${list.title}\n${list.items.map((i) => `${i.done ? "[x]" : "[ ]"} ${i.text}`).join("\n")}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: list.title, text });
+      } catch {
+        // avbruten delning — gör inget
+      }
+    } else {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    }
   };
 
   return (
@@ -55,16 +72,25 @@ function ListPage() {
             <input
               value={list.title}
               onChange={(e) => renameList(id, e.target.value)}
-              className="w-full bg-transparent font-display text-2xl text-card-foreground outline-none"
+              className="min-w-0 flex-1 bg-transparent font-display text-2xl text-card-foreground outline-none"
               aria-label="Listans namn"
             />
-            <button
-              onClick={() => setDraft("")}
-              aria-label="Lägg till"
-              className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
-            >
-              <Plus className="h-6 w-6" strokeWidth={1.5} />
-            </button>
+            <div className="flex shrink-0 items-center">
+              <button
+                onClick={share}
+                aria-label="Dela lista"
+                className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
+              >
+                {copied ? <Check className="h-6 w-6" strokeWidth={1.5} /> : <Share className="h-6 w-6" strokeWidth={1.5} />}
+              </button>
+              <button
+                onClick={() => setDraft("")}
+                aria-label="Lägg till"
+                className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
+              >
+                <Plus className="h-6 w-6" strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
           {today && (
             <p className="mt-0.5 font-display text-sm text-card-foreground/70" aria-label="Dagens datum">
