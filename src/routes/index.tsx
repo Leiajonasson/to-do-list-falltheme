@@ -1,8 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ChevronRight, Plus } from "lucide-react";
 import { useTodoLists } from "@/lib/todo-store";
-import birds from "@/assets/birds.png";
-import trees from "@/assets/trees.png";
+import birds from "@/assets/birds.png.asset.json";
+import trees from "@/assets/trees.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,8 +22,8 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background px-4 pb-10">
-      <img src={birds} alt="" className="pointer-events-none absolute left-0 top-56 hidden w-64 md:block" />
-      <img src={trees} alt="" className="pointer-events-none absolute -right-4 top-24 hidden w-96 lg:block" />
+      <img src={birds.url} alt="" className="pointer-events-none absolute left-0 top-56 hidden w-64 md:block" />
+      <img src={trees.url} alt="" className="pointer-events-none absolute -right-4 top-24 hidden w-96 lg:block" />
       <h1 className="pt-14 text-center font-display text-6xl text-foreground">Välkommen!</h1>
       <section className="relative mx-auto mt-10 max-w-xl rounded-md bg-primary p-3 shadow-card">
         <div className="flex items-center justify-between px-2 py-3">
