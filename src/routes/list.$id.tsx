@@ -52,7 +52,11 @@ function ListPage() {
               className="w-full bg-transparent font-display text-2xl text-card-foreground outline-none"
               aria-label="Listans namn"
             />
-            <button onClick={() => setDraft("")} aria-label="Lägg till" className="text-card-foreground">
+            <button
+              onClick={() => setDraft("")}
+              aria-label="Lägg till"
+              className="rounded-full p-1.5 text-card-foreground transition hover:bg-beige"
+            >
               <Plus className="h-6 w-6" strokeWidth={1.5} />
             </button>
           </div>
