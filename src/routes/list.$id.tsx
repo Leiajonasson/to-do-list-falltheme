@@ -28,6 +28,8 @@ function ListPage() {
   const [today, setToday] = useState("");
   const [copied, setCopied] = useState(false);
   const list = lists?.find((l) => l.id === id);
+  // Klara saker längst ner, annars ursprunglig ordning (sort är stabil)
+  const sortedItems = list ? [...list.items].sort((a, b) => Number(a.done) - Number(b.done)) : [];
 
   useEffect(() => {
     const d = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" });
