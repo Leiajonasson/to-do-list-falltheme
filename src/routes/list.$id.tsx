@@ -27,16 +27,7 @@ function ListPage() {
   const [selected, setSelected] = useState<string | null>(null);
   const [today, setToday] = useState("");
   const [copied, setCopied] = useState(false);
-  const [recentlyDone, setRecentlyDone] = useState<string | null>(null);
   const list = lists?.find((l) => l.id === id);
-  // Klara saker längst ner, annars ursprunglig ordning (sort är stabil).
-  // En nybockad sak stannar kvar på sin plats en stund innan den glider ner.
-  const sortedItems = list
-    ? [...list.items].sort(
-        (a, b) =>
-          Number(a.done && a.id !== recentlyDone) - Number(b.done && b.id !== recentlyDone),
-      )
-    : [];
 
   useEffect(() => {
     const d = new Date().toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" });
@@ -47,18 +38,6 @@ function ListPage() {
     if (draft?.trim()) addItem(id, draft.trim());
     setDraft(null);
   };
-
-  const onToggle = (itemId: string) => {
-    const wasDone = list?.items.find((i) => i.id === itemId)?.done ?? false;
-    toggleItem(id, itemId);
-    if (!wasDone) {
-      setRecentlyDone(itemId);
-      window.setTimeout(() => setRecentlyDone(null), 700);
-    } else {
-      setRecentlyDone(null);
-    }
-  };
-
 
   const share = async () => {
     if (!list) return;
@@ -119,11 +98,11 @@ function ListPage() {
             </p>
           )}
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
-            {sortedItems.map((item) => (
+            {list.items.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
                 <div className="flex flex-1 items-center gap-6 border-b border-card-foreground/70 py-3">
                   <button
-                    onClick={() => onToggle(item.id)}
+                    onClick={() => toggleItem(id, item.id)}
                     aria-label={item.done ? "Ångra" : "Klar"}
                     className={`ml-2 h-7 w-7 shrink-0 rounded-full border-2 border-card-foreground transition ${item.done ? "border-[1px] bg-done" : ""}`}
                   />
