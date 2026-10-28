@@ -58,24 +58,25 @@ function ListPage() {
           </div>
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
-              <li key={item.id} className="flex items-center gap-3">
+              <li key={item.id} className="group flex items-center gap-3">
                 <div className="flex flex-1 items-center gap-6 border-b border-card-foreground/70 py-3">
                   <button
                     onClick={() => toggleItem(id, item.id)}
                     aria-label={item.done ? "Ångra" : "Klar"}
-                    className={`ml-2 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-card-foreground transition ${item.done && selected !== item.id ? "border-[1px] bg-done" : ""}`}
-                  >
-                    {selected === item.id && (
-                      <span aria-hidden="true" className="text-2xl leading-none text-card-foreground">
-                        &minus;
-                      </span>
-                    )}
-                  </button>
+                    className={`ml-2 h-7 w-7 shrink-0 rounded-full border-2 border-card-foreground transition ${item.done ? "border-[1px] bg-done" : ""}`}
+                  />
                   <button
                     onClick={() => setSelected(selected === item.id ? null : item.id)}
                     className="flex-1 text-left font-display text-lg text-card-foreground"
                   >
                     {item.text}
+                  </button>
+                  <button
+                    onClick={() => setSelected(selected === item.id ? null : item.id)}
+                    aria-label="Visa radera"
+                    className={`pr-2 font-display text-2xl leading-none text-card-foreground opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100 ${selected === item.id ? "opacity-100" : ""}`}
+                  >
+                    &minus;
                   </button>
                 </div>
                 {selected === item.id && (
