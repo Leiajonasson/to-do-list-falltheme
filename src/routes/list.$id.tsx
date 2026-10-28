@@ -71,13 +71,15 @@ function ListPage() {
                   >
                     {item.text}
                   </button>
-                  <button
-                    onClick={() => setSelected(selected === item.id ? null : item.id)}
-                    aria-label="Visa radera"
-                    className="pr-2 font-display text-2xl leading-none text-card-foreground opacity-0 transition-opacity focus:opacity-100 group-hover:opacity-100"
-                  >
-                    &minus;
-                  </button>
+                  {selected !== item.id && (
+                    <button
+                      onClick={() => setSelected(item.id)}
+                      aria-label="Visa radera"
+                      className="pr-2 font-display text-2xl leading-none text-card-foreground opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
+                    >
+                      &minus;
+                    </button>
+                  )}
                 </div>
                 {selected === item.id && (
                   <button
