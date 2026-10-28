@@ -59,12 +59,14 @@ function ListPage() {
     <main className="relative min-h-screen overflow-hidden bg-background px-4 pb-10">
       <img src={leavesLeft.url} alt="" className="pointer-events-none absolute left-[max(1rem,calc(50%-30rem))] top-[15vw] hidden w-[42vw] max-w-96 sm:block sm:top-[16vw] md:top-44" />
       <img src={leavesRight.url} alt="" className="pointer-events-none absolute right-[max(1rem,calc(50%-30rem))] top-[15vw] hidden w-[32vw] max-w-80 sm:block sm:top-[16vw] md:top-44" />
-      <Link to="/" aria-label="Tillbaka" className="absolute left-10 top-20 -m-3 rounded-full p-3 text-foreground transition hover:bg-white hover:shadow-card">
-        <ChevronLeft className="h-10 w-10 sm:h-14 sm:w-14" strokeWidth={1.5} />
-      </Link>
-      <h1 className="pt-20 text-center font-display text-6xl text-foreground">
-        {isNew ? "Skapa din nya to-do" : "To-do"}
-      </h1>
+      <div className="relative mt-20 flex items-center justify-center">
+        <Link to="/" aria-label="Tillbaka" className="absolute left-10 top-1/2 -m-3 -translate-y-1/2 rounded-full p-3 text-foreground transition hover:bg-white hover:shadow-card">
+          <ChevronLeft className="h-10 w-10 sm:h-14 sm:w-14" strokeWidth={1.5} />
+        </Link>
+        <h1 className="text-center font-display text-6xl text-foreground">
+          {isNew ? "Skapa din nya to-do" : "To-do"}
+        </h1>
+      </div>
       {lists && !list && <p className="mt-10 text-center text-foreground">Listan hittades inte.</p>}
       {list && (
         <section className="relative mx-auto mt-14 max-w-md rounded-md bg-card px-6 pb-6 pt-5 shadow-card">
