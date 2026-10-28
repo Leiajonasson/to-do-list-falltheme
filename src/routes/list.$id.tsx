@@ -92,11 +92,13 @@ function ListPage() {
               </button>
             </div>
           </div>
-          {today && (
-            <p className="mt-0.5 font-display text-sm text-card-foreground/70" aria-label="Dagens datum">
-              {today}
-            </p>
-          )}
+          <input
+            value={list.date || today}
+            onChange={(e) => setDate(id, e.target.value)}
+            placeholder={today}
+            className="mt-0.5 w-full bg-transparent font-display text-sm text-card-foreground/70 outline-none"
+            aria-label="Listans datum"
+          />
           <ul className="mt-2 max-h-[420px] overflow-y-auto">
             {list.items.map((item) => (
               <li key={item.id} className="group relative flex items-center gap-3">
