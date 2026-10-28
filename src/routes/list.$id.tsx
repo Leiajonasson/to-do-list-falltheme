@@ -63,8 +63,14 @@ function ListPage() {
                   <button
                     onClick={() => toggleItem(id, item.id)}
                     aria-label={item.done ? "Ångra" : "Klar"}
-                    className={`ml-2 h-7 w-7 shrink-0 rounded-full border-2 border-card-foreground transition ${item.done ? "border-[1px] bg-done" : ""}`}
-                  />
+                    className={`ml-2 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-card-foreground transition ${item.done && selected !== item.id ? "border-[1px] bg-done" : ""}`}
+                  >
+                    {selected === item.id && (
+                      <span aria-hidden="true" className="text-2xl leading-none text-card-foreground">
+                        &minus;
+                      </span>
+                    )}
+                  </button>
                   <button
                     onClick={() => setSelected(selected === item.id ? null : item.id)}
                     className="flex-1 text-left font-display text-lg text-card-foreground"
