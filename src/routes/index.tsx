@@ -18,7 +18,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { lists, createList } = useTodoLists();
+  const { lists, createList, deleteList } = useTodoLists();
+  const [armed, setArmed] = useState<string | null>(null);
   const navigate = useNavigate();
 
   return (
@@ -38,15 +39,36 @@ function Index() {
         </div>
         <ul className="mt-2 max-h-[440px] space-y-9 overflow-y-auto pb-1">
           {lists?.map((l) => (
-            <li key={l.id}>
+            <li key={l.id} className="relative">
               <Link
                 to="/list/$id"
                 params={{ id: l.id }}
+                onClick={() => setArmed(null)}
                 className="flex items-center justify-between rounded-sm bg-card px-7 py-7 font-display text-2xl text-card-foreground transition hover:bg-secondary"
               >
                 {l.title}
                 <ChevronRight className="h-7 w-7" />
               </Link>
+              {armed === l.id ? (
+                <button
+                  onClick={() => {
+                    deleteList(l.id);
+                    setArmed(null);
+                  }}
+                  aria-label="Radera lista"
+                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-destructive px-4 py-1.5 font-display text-base text-destructive-foreground shadow-card transition hover:ring-2 hover:ring-foreground"
+                >
+                  Delete
+                </button>
+              ) : (
+                <button
+                  onClick={() => setArmed(l.id)}
+                  aria-label="Ta bort lista"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 rounded-full p-1.5 text-card-foreground/70 transition hover:bg-beige hover:text-card-foreground"
+                >
+                  <Trash2 className="h-6 w-6" strokeWidth={1.5} />
+                </button>
+              )}
             </li>
           ))}
         </ul>
