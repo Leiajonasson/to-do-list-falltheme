@@ -87,7 +87,7 @@ function ListPage() {
                       deleteItem(id, item.id);
                       setSelected(null);
                     }}
-                    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-destructive px-4 py-1.5 font-display text-base text-destructive-foreground shadow-card focus:ring-2 focus:ring-foreground"
+                    className="absolute right-0 top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md bg-destructive px-4 py-1.5 font-display text-base text-destructive-foreground shadow-card transition hover:ring-2 hover:ring-foreground"
                   >
                     Delete
                   </button>
